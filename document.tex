@@ -12,6 +12,7 @@
 \usepackage{color}
 \usepackage{cmap}
 \usepackage{array}
+\usepackage{titlesec}
 
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -80,6 +81,21 @@
 \fancyfoot[C]{KH MB RK}
 \fancyhead[R]{\thepage}
 
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titleformat*{\section}{
+	\normalsize
+	\bfseries
+}
+
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titleformat*{\subsection}{
+	\small
+	\bfseries
+	\color{burntorange}
+}
+
+
+
 \begin{document}
 	\tableofcontents
 	\newpage
@@ -100,7 +116,7 @@
 		12 L & \\	\hline
 		13 M & \\	\hline
 	\end{tabular}
-
+	\newline\newline\newline
 	\begin{tabular}{| l | l || m{12mm}| }
 		\hline
 		\textbf{Time} & \textbf{Meeting Description} & \textbf{Check} \\	\hline
@@ -116,17 +132,23 @@
 	\newpage
 
 	\section{2D Geometry}
-		\lstinputlisting[label=template,caption=Primitives]{cpp/2dprimitives.cpp}
-		\lstinputlisting[label=template,caption=Triangulation]{cpp/triangulation.cpp}
+		\subsection{Primitives}
+		\lstinputlisting{cpp/2dprimitives.cpp}
+		\subsection{Triangulation}
+		\lstinputlisting{cpp/triangulation.cpp}
 	\section{3D Geometry}
 	\section{Combinatorics}
-		\lstinputlisting[label=template,caption=Basics]{cpp/combinatorics.cpp}
+		\subsection{Basics}
+		\lstinputlisting{cpp/combinatorics.cpp}
 	\section{Data Structures}
 	\section{Graph Theory}
 	\section{Number Theory}
-		\lstinputlisting[label=template,caption=Gaussian Elimination]{cpp/gaussian_elimination.cpp}
-		\lstinputlisting[label=template,caption=Tortoise \& Hare]{cpp/tortoise_hare.cpp}
+		\subsection{Gaussian Elimination}
+		\lstinputlisting{cpp/gaussian_elimination.cpp}
+		\subsection{Tortoise \& Hare}
+		\lstinputlisting{cpp/tortoise_hare.cpp}
 	\section{Search}
-		\lstinputlisting[label=template,caption=Ternary Search]{cpp/ternary_search.cpp}
+		\subsection{Ternary Search}
+		\lstinputlisting{cpp/ternary_search.cpp}
 	\section{Strings}
 \end{document}
