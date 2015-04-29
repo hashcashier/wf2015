@@ -11,6 +11,8 @@
 \usepackage{comment, fancyvrb, fancyhdr}
 \usepackage{color}
 \usepackage{cmap}
+\usepackage{array}
+
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -64,15 +66,10 @@
 
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{3mm}
+%\setlength{\parskip}{3mm}
+
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-
-\newcommand{\Section}[1]{
-  \section*{#1}
-  \addcontentsline{toc}{subsection}{#1}
-  \vspace{-3mm}
-}
 
 \newcommand{\Topic}[1]{\textbf{#1}}
 
@@ -84,7 +81,42 @@
 \fancyhead[R]{\thepage}
 
 \begin{document}
+	\tableofcontents
+	\newpage
+	\begin{tabular}{| l || m{7cm} | }
+		\hline
+		\textbf{Problem} & \textbf{Tags}\\	\hline
+		01 A & \\	\hline
+		02 B & \\	\hline
+		03 C & \\	\hline
+		04 D & \\	\hline
+		05 E & \\	\hline
+		06 F & \\	\hline
+		07 G & \\	\hline
+		08 H & \\	\hline
+		09 I & \\	\hline
+		10 J & \\	\hline
+		11 K & \\	\hline
+		12 L & \\	\hline
+		13 M & \\	\hline
+	\end{tabular}
+
+	\begin{tabular}{| l | l || m{12mm}| }
+		\hline
+		\textbf{Time} & \textbf{Meeting Description} & \textbf{Check} \\	\hline
+		030 & All Problems Read. Write Tags. & 	\\	\hline
+		060 & Ace Decided. Choose Coder.	&	\\	\hline
+		120 & Decide \& Order Solveable Problems &	\\	\hline
+		150 & Status Check &	\\	\hline
+		180 & Status Check &	\\	\hline
+		210 & Status Check &	\\	\hline
+		240 & Status Check &	\\	\hline
+		270 & Status Check &	\\	\hline
+	\end{tabular}
+	\newpage
+
 	\section{2D Geometry}
+		\lstinputlisting[label=template,caption=Primitives]{cpp/2dprimitives.cpp}
 		\lstinputlisting[label=template,caption=Triangulation]{cpp/triangulation.cpp}
 	\section{3D Geometry}
 	\section{Combinatorics}
