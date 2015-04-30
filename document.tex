@@ -109,7 +109,9 @@
 
 	\tableofcontents
 
-	\begin{tabular}{| l || m{7cm} | }
+	\newpage
+
+	\begin{tabular}{| l || m{6cm} | }
 		\hline
 		\textbf{Problem} & \textbf{Tags}\\	\hline
 		01 A & \\	\hline
@@ -127,9 +129,9 @@
 		13 M & \\	\hline
 	\end{tabular}
 	\newline\newline\newline
-	\begin{tabular}{| l | l || m{12mm}| }
+	\begin{tabular}{| l | l || m{7mm}| }
 		\hline
-		\textbf{Time} & \textbf{Meeting Description} & \textbf{Check} \\	\hline
+		\textbf{Time} & \textbf{Meeting Description} & \textbf{Chk} \\	\hline
 		030 & All Problems Read. Write Tags. & 	\\	\hline
 		060 & Ace Decided. Choose Coder.	&	\\	\hline
 		120 & Decide \& Order Solveable Problems &	\\	\hline
@@ -139,7 +141,6 @@
 		240 & Status Check &	\\	\hline
 		270 & Status Check &	\\	\hline
 	\end{tabular}
-	\newpage
 
 	\section{2D Geometry}
 		\subsection{Primitives}
@@ -179,11 +180,29 @@
 			\lstinputlisting{cpp/sparse_array.cpp}
 		\subsection{Skip Lists}
 			\lstinputlisting{cpp/skip_lists.cpp}
+		\subsection{BIT + Search}
+			\lstinputlisting{cpp/filler_20.cpp}
+		\subsection{Segment Tree + Lazy Propagation}
+			\lstinputlisting{cpp/filler_30.cpp}
+		\subsection{Weighted Union Disjoint Sets}
+			\lstinputlisting{cpp/filler_15.cpp}
 	\section{Game Theory}
 		\subsection{Nim Game}
 			\lstinputlisting{cpp/nim_game.cpp}
 		\subsection{Grundy Numbers}
 			\lstinputlisting{cpp/grundy_numbers.cpp}
+		\subsection{General Josephus Problem}
+	\section{General Mathematics}
+		\subsection{Inclusion-Exclusion Patterns}
+			\lstinputlisting{cpp/filler_10.cpp}
+		\subsection{Determinant}
+			\lstinputlisting{cpp/filler_15.cpp}
+		\subsection{Gaussian Elimination}
+			\lstinputlisting{cpp/gaussian_elimination.cpp}
+		\subsection{Fast Fourier-Transform}
+			\lstinputlisting{cpp/fast_fourier.cpp}
+		\subsection{Misc. Formulas}
+			\lstinputlisting{cpp/filler_30.cpp}
 	\section{Graph Theory}
 		\subsection{Articulation Points \& Bridges}
 			\lstinputlisting{cpp/artpb.cpp}
@@ -203,6 +222,16 @@
 			\lstinputlisting{cpp/max_bp_matching.cpp}
 		\subsection{HL Decomposition}
 			\lstinputlisting{cpp/hl_decomposition.cpp}
+		\subsection{Modelling Inequalities}
+			\lstinputlisting{cpp/filler_10.cpp}
+		\subsection{Max Flow Tricks}
+			\lstinputlisting{cpp/filler_15.cpp}
+		\subsection{Bellman Ford}
+			\lstinputlisting{cpp/filler_10.cpp}
+		\subsection{Stable Marriage}
+			\lstinputlisting{cpp/filler_15.cpp}
+		\subsection{Maximum Assignment}
+			\lstinputlisting{cpp/filler_15.cpp}
 	\section{Linear Programming}
 		\subsection{Simplex}
 			\lstinputlisting{cpp/simplex.cpp}
@@ -227,12 +256,9 @@
 			\lstinputlisting{cpp/chinese_remainder.cpp}
 		\subsection{Discerete Logarithm}
 			\lstinputlisting{cpp/discrete_log.cpp}
-		\subsection{Gaussian Elimination}
-			\lstinputlisting{cpp/gaussian_elimination.cpp}
-		\subsection{Fast Fourier-Transform}
-			\lstinputlisting{cpp/fast_fourier.cpp}
 		\subsection{Tortoise \& Hare}
 			\lstinputlisting{cpp/tortoise_hare.cpp}
+		\subsection{Pollard Rho}
 	\section{Search}
 		\subsection{Binary Search}
 			\lstinputlisting{cpp/binary_search.cpp}
@@ -245,7 +271,7 @@
 			\lstinputlisting{cpp/hashing.cpp}
 		\subsection{Z-Algorithm}
 			\lstinputlisting{cpp/zalgo.cpp}
-		\subsection{KMP}
+		\subsection{KMP + Periods}
 			\lstinputlisting{cpp/kmp.cpp}
 		\subsection{Manacher}
 			\lstinputlisting{cpp/manacher.cpp}
