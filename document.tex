@@ -1,6 +1,7 @@
 \documentclass[twocolumn]{article}
 
 \usepackage{listings}
+\usepackage{float}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{fancyhdr}
@@ -13,7 +14,9 @@
 \usepackage{cmap}
 \usepackage{array}
 \usepackage{titlesec}
-
+\usepackage{graphicx}
+\usepackage{fixltx2e}
+\graphicspath{ {images/} }
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -72,8 +75,6 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-\newcommand{\Topic}[1]{\textbf{#1}}
-
 \pagestyle{fancy}
 
 \fancyhead[L]{The German University in Cairo}
@@ -97,6 +98,13 @@
 
 
 \begin{document}
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics{guc_logo}
+		\end{center}
+	\end{figure}
+
 	\tableofcontents
 
 	\begin{tabular}{| l || m{7cm} | }
@@ -134,19 +142,17 @@
 	\section{2D Geometry}
 		\subsection{Primitives}
 			\lstinputlisting{cpp/2dprimitives.cpp}
-		\subsection{Circle Intersection}
-		\subsection{Line-Circle Intersection}
-		\subsection{Line Intersection}
-		\subsection{Segment Intersection}
-		\subsection{Parabola-Line Intersection}
+		\subsection{Intersections}
+			\lstinputlisting{cpp/2dintersections.cpp}
 		\subsection{Circle Generation}
+			\lstinputlisting{cpp/2dcircle.cpp}
 		\subsection{Heron Triangle Area}
 		\subsection{Polygon Centroid}
 			\lstinputlisting{cpp/triangulation.cpp}
 		\subsection{Point In Polygon}
 		\subsection{Convex Hull}
-		\subsection{Full Line Segment Intersection}
-		\subsection{Voronoi}
+		\subsection{Line Segment Set Intersection}
+		\subsection{Voronoi Diagrams}
 	\section{3D Geometry}
 		\subsection{Primitives}
 		\subsection{Convex Hull}
@@ -176,9 +182,14 @@
 		\subsection{Simplex}
 	\section{Number Theory}
 		\subsection{Extended GCD}
-		\subsection{Sieve of Eratosthenes}
-		\subsection{Chinese Remainder}
 		\subsection{Modular Inverse}
+		\subsection{Modular Linear Equation}
+		\subsection{Linear Diophantine Equation}
+		\subsection{Modular Powers}
+		\subsection{Sieve of Eratosthenes}
+		\subsection{Primality Testing \& Factoring}
+		\subsection{Euler Phi}
+		\subsection{Chinese Remainder}
 		\subsection{Discerete Logarithm}
 		\subsection{Gaussian Elimination}
 		\subsection{Fast Fourier-Transform}
