@@ -1,4 +1,4 @@
-# wf2015
+# ACM ICPC World Finals 2015 Bool Shift! Reference Document
 
 store source files in their respective folders by extension
 
