@@ -1,4 +1,5 @@
 typedef pair<int, int> ii;
+typedef long long LL;
 long long gcd( long long a, long long b )
 { return( b == 0 ? a : gcd( b, a % b ) ); }
 //USED BY: egcd, msolve, inverse, ldioph
