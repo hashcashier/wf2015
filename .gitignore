@@ -127,3 +127,6 @@ sympy-plots-for-*.tex/
 
 #Binary Files
 *.bin
+
+#Ignoring the generated pdf
+document.pdf
