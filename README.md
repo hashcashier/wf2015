@@ -9,3 +9,13 @@ do not use lower case L (confusion between 1 & l)
 code must be tested
 
 data structures must be independent structs for reusability
+
+### Building the PDF file
+```bash
+  $ make
+```
+
+### Cleaning Build files
+```bash
+  $ make clean
+```
