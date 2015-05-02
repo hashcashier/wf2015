@@ -1,13 +1,12 @@
 // The number of primitive roots modulo n,
 // if there are any, is equal to phi( phi(n) )
 bool is_primitive_root(int g, int n) {
-	vector<int> phiFactors = factor(phi(n));
-	for(int i = 0; i < phiFactors.size(); i++)
-		if(fastpow(g,(phiFactors.size()-1)/phiFactors[i].first)%n == 1)
+	vector<int> phiF = factor(phi(n));
+	for(int i = 0; i < phiF.size(); i++)
+		if(fastpow(g,(phiF.size()-1)/phiF[i].first)%n == 1)
 			return false;
 	return true;
-}
-// finds x -> g^x = a mod n
+}// finds x -> g^x = a mod n
 int baby_giant_disc(int g, int a, int n){
 	int m = ceil(sqrt(n));
 	map<int, int> table; // can use hashing here
