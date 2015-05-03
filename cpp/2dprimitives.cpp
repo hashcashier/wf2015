@@ -1,7 +1,7 @@
 typedef complex<double> point;
-double cross(point &a, point &b) {return imag(conj(a)*b);}
-double dot(point &a, point &b) {return real(conj(a)*b);}
-double len(point &a, point &b) {return dot(b-a,b-a);}
+double cross(point a, point b) {return imag(conj(a)*b);}
+double dot(point a, point b) {return real(conj(a)*b);}
+double len(point a, point b) {return dot(b-a,b-a);}
 struct line {
 	double a,b,c; point p,q;
 	line(point p1, point p2):p(p1),q(p2) {
