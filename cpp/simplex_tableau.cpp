@@ -33,17 +33,17 @@ struct smplxTable {
 				double diff = T[m][mj]-T[m][j];
 				if(diff > 0 || (fabs(diff) < EPS && nonbasic[j] < nonbasic[mj]))
 					mj = j;
-			}
+			}// ^ Choose Exiting Variable
 			if(T[m][mj] > -EPS) break;
 			for(int i=0;i<m;i++) if(T[i][mj]>0) {
 				double diff = T[mi][n]/T[mi][mj]-T[i][n]/T[i][mj];
 				if(T[i][mj] <= EPS) continue;
 				if(mi==m || diff > EPS || (fabs(diff) < EPS && basic[i] < basic[mi]))
 					mi=i;
-			}
+			}// ^ Choose Entering Variable
 			if(T[mi][mj] <= EPS) return INF;
 			pivot(mi, mj);
-		}
+		}// ^ Seek Optimal Solution
 		X = VD(n, 0);
 		for(int i = 0; i < m; i++)
 			if(basic[i] >= 0) X[basic[i]] = T[i][n];
