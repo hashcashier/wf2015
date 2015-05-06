@@ -28,17 +28,17 @@ struct smplxTable {
 			if(T[mi][mj] >= -EPS) return -INF;
 			pivot(mi,mj);
 		} // ^ Initial BF Solution
-		for(int mi=0,mj=0;;mi=mj=0) {
+		for(int mi=m,mj=0;;mi=m,mj=0) {
 			for(int j=1;j<n;j++) {
 				double diff = T[m][mj]-T[m][j];
 				if(diff > 0 || (fabs(diff) < EPS && nonbasic[j] < nonbasic[mj]))
 					mj = j;
 			}
 			if(T[m][mj] > -EPS) break;
-			for(int i=1;i<m;i++) if(T[i][mj]>0) {
+			for(int i=0;i<m;i++) if(T[i][mj]>0) {
 				double diff = T[mi][n]/T[mi][mj]-T[i][n]/T[i][mj];
 				if(T[i][mj] <= EPS) continue;
-				if(diff > EPS || (fabs(diff) < EPS && basic[i] < basic[mi]))
+				if(mi==m || diff > EPS || (fabs(diff) < EPS && basic[i] < basic[mi]))
 					mi=i;
 			}
 			if(T[mi][mj] <= EPS) return INF;
@@ -50,8 +50,8 @@ struct smplxTable {
 		return T[m][n];
 	}// ^ Returns Maximal Goal Value
 	smplxTable(vector<VD> &A, VD &B, VD &C) {
-		C.push_back(0), m = B.size(), n = C.size()+1;
-		T = vector<VD>(m+1, VD(n+1, 0));
+		C.push_back(0), m = B.size(), n = C.size();
+		T = vector<VD>(m+1, VD(n+2, 0));
 		basic = VI(m+1, 0); nonbasic = VI(n, 0);
 		for(int i = 0; i < m; i++)
 			copy(A[i].begin(), A[i].end(), T[i].begin()),
