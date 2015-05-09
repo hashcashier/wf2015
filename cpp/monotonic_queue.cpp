@@ -17,10 +17,10 @@ void push(int num) {
 }
  
 void pop() {
-    if(cntA > 0 && cntB > 0 && A[cntA] == B[cntB]) {
-        cntB --;
-    }
     if(cntA > 0) {
+        if(cntB > 0 && A[cntA - 1] == B[cntB - 1]) {
+            cntB --;
+        }
         cntA --;
     }
 }
