@@ -1,30 +1,28 @@
-/*
-This implementation has the features of:
-1. Finding current minimum
-2. Popping back from the array
-*/
-
-#define MAXN 1005
+#define MAXN 1000
 
 int A[MAXN], B[MAXN];
-int cntA, cntB;
- 
+int sA = 0, eA = -1, sB = 0, eB = -1;
+
 void push(int num) {
-    A[cntA ++] = num;
-    if(cntB == 0 || num <= B[cntB - 1]) {
-        B[cntB ++] = num;
+    A[++ eA] = num;
+    while(sB <= eB && B[eB] > num) {
+        eB --;
     }
+    B[++ eB] = num;
 }
- 
+
 void pop() {
-    if(cntA > 0) {
-        if(cntB > 0 && A[cntA - 1] == B[cntB - 1]) {
-            cntB --;
+    if(sA <= eA) {
+        if(sB <= eB && A[sA] == B[sB]) {
+            sB ++;
         }
-        cntA --;
+        sA ++;
     }
 }
- 
+
 int get_min() {
-    return B[cntB - 1];
+    if(sB <= eB) {
+        return B[sB];
+    }
+    return std::numeric_limits<int>::max();
 }
