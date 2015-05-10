@@ -1,20 +1,6 @@
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
+int g(int u) { // no standard or general way to do it
+	/* minimal excludant:
+	   smallest non-negative number not found
+	   amongst followers/neighbors of u */
+	return mex(F(u));
+}
