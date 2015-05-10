@@ -4,7 +4,7 @@
 #define WORDSIZE 100
 #define ALPHASIZE 26
 
-int trie[MAXN * WORDSIZE][ALPHASIZE], node = 1;
+int trie[MAXN * WORDSIZE][ALPHASIZE], node;
 bool flag[MAXN * WORDSIZE];
 
 int get_val(char c) {
@@ -18,8 +18,9 @@ void insert(string word) {
         ind ++;
     }
     for(int i=ind; i<sz; i++) {
+        node ++;
         trie[cur][get_val(word[i])] = node;
-        cur = node ++;
+        cur = node;
     }
     flag[cur] = true;
 }
