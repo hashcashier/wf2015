@@ -6,6 +6,7 @@
 class node {
     public:
     int len, suff;
+    //child_cnt is the count of suff links including the current node
     int child_cnt, occ;
     int nxt[ALPHASIZE];
 } tree[MAXN];
