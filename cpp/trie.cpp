@@ -12,15 +12,15 @@ int get_val(char c) {
 }
 
 void insert(string word) {
-    int cur = 0, ind = 0, sz = word.size();
-    while(ind < sz && trie[cur][get_val(word[ind])] != 0) {
-        cur = trie[cur][get_val(word[ind])];
-        ind ++;
-    }
-    for(int i=ind; i<sz; i++) {
-        node ++;
-        trie[cur][get_val(word[i])] = node;
-        cur = node;
+    int cur = 0, sz = word.size();
+    for(int i=0; i<sz; i++) {
+        int nxt = trie[cur][get_val(word[i])];
+        if(nxt == 0) {
+            node ++;
+            trie[cur][get_val(word[i])] = node;
+            nxt = node;
+        }
+        cur = nxt;
     }
     flag[cur] = true;
 }
