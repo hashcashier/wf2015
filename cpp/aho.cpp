@@ -111,7 +111,7 @@ void search() {
             cur = nxt;
             ind ++;
         }
-        //Check to remove duplicates
+        //Check used to remove duplicates
         if(last != ind) {
             for(int i=0; i<trie[cur].patts.size(); i++) {
                 int patt_idx = trie[cur].patts[i];
