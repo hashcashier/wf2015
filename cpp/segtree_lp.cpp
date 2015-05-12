@@ -81,11 +81,3 @@ class SegTree{
     return update2(1, from , to , val , 0 , n-1);
   }
 };
-
-int main(){
-  SegTree a(10);
-  a.update(0,5,1);
-  a.update(5,9,2);
-  cout << a.query(6,6) << endl;
-}
-
