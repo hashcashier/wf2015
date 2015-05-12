@@ -1,33 +1,3 @@
-#include <set>
-#include <map>
-#include <list>
-#include <cmath>
-#include <ctime>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <cctype>
-#include <cstdio>
-#include <string>
-#include <vector>
-#include <cassert>
-#include <cstdlib>
-#include <cstring>
-#include <sstream>
-#include <iostream>
-#include <algorithm>
-
-using namespace std;
-
-#define pb push_back
-#define mp make_pair
-typedef vector<int> vi;
-typedef pair<int,int> ii;
-#define sz(a) int((a).size())
-#define all(a) (a).begin(),(a).end()
-#define sor(a) sort((a).begin(),(a).end())
-#define FOR(a,b,c) for(int (a)=(b);(a)<(c);(a)++)
-
 class SegTree{
   public:
   vector<int> t;
