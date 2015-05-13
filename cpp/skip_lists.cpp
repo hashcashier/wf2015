@@ -6,20 +6,12 @@ class node{
     int value,level,length;
     node *next,*down;
 
-    void init(int v,int lvl, int len,node* n,node* d){
-      value = v;
-      level = lvl;
-      length = len;
-      next = n;
-      down = d;
-    }
-
     node(int v,int lvl, int len,node* n,node* d){
-      init(v,lvl,len,n,d);
+      value=v,level=lvl,length=len,next=n,down=d;
     }
 
     node(int v,int lvl,node* n,node* d){
-      init(v,lvl,-1,n,d);
+      value=v,level=lvl,length=-1,next=n,down=d;
     }
 };
 
