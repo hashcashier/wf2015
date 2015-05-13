@@ -7,7 +7,6 @@ Tree can be extended to N-dimensions
 
 int N;
 int bit[MAXN+1];
-int bit2[MAXN+1][MAXN+1];
 
 void update(int idx, int val) {
 	for(int i=idx; i<=N; i+=(i & -i)) {
@@ -54,22 +53,4 @@ int findG(int val) {
 		mask >>= 1;
 	}
 	return (val != 0) ? -1 : idx;
-}
-
-void update2(int x, int y, int val) {
-	for(int i=x; i<=N; i+=(i & -i)) {
-		for(int j=y; j<=N; j+=(j & -j)) {
-			bit2[i][j] += val;
-		}
-	}
-}
-
-int query2(int x, int y) {
-	int ret = 0;
-	for(int i=x; i>0; i-=(i & -i)) {
-		for(int j=y; j>0; j-=(j & -j)) {
-			ret += bit[i][j];
-		}
-	}
-	return ret;
 }
