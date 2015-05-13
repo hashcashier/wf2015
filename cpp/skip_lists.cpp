@@ -73,7 +73,7 @@ class SkipList{
       return false;
     int level = randomizeLevel();
     if(level > head->level){
-      head = new node(HEAD_VAL, level,-1, NULL, head);
+      head = new node(HEAD_VAL, level, NULL, head);
     }
     node* cur = head;
     node* last = NULL;
@@ -125,10 +125,8 @@ class SkipList{
       cur = cur->next;
     }
     --size;
-    if(head->next == NULL){
+    if(head->next == NULL)
       head = head->down;
-      head->level--;
-    }
     return true;
   }
 };
