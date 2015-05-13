@@ -31,6 +31,3 @@ LL fibosum(LL N, LL mod) {
 	vvLL res = mat_mul(mat_exped, vec, mod);
 	return res[2][0];
 }
-LL posMod(LL num, LL mod) {
-	return num < 0 ? (num%mod)+mod : num%mod;
-}
