@@ -23,6 +23,7 @@ int query(int idx) {
 	return ret;
 }
 
+//If more than one index exists, choose randomly
 int find(int val) {
 	int idx = 0, num = (int) log2(N);
 	int mask = (1 << num);
@@ -32,6 +33,21 @@ int find(int val) {
 			return nidx;
 		}
 		else if(val > bit[nidx]) {
+			idx = nidx;
+			val -= bit[nidx];
+		}
+		mask >>= 1;
+	}
+	return (val != 0) ? -1 : idx;
+}
+
+//If more than one index exists, choose greatest
+int findG(int val) {
+	int idx = 0, num = (int) log2(N);
+	int mask = (1 << num);
+	while(mask != 0 && idx < N) {
+		int nidx = idx + mask;
+		if(val >= bit[nidx]) {
 			idx = nidx;
 			val -= bit[nidx];
 		}
