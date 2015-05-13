@@ -18,3 +18,4 @@ double determinant(vector<vd> mat) {
 		res *= mat[i][i];
 	return res;
 }
+/* Inverse of a square matrix: First, the n by n identity matrix is augmented to the right of A, forming a n by 2n block matrix [A | I]. Now through application of elementary row operations, find the reduced echelon form of this n by 2n matrix. The matrix A is invertible if and only if the left block can be reduced to the identity matrix I; in this case the right block of the final matrix is A−1. If the algorithm is unable to reduce the left block to I, then A is not invertible. */
