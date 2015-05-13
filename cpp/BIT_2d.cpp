@@ -6,7 +6,7 @@ int bit[MAXN+1][MAXN+1];
 void update(int x, int y, int val) {
 	for(int i=x; i<=N; i+=(i & -i)) {
 		for(int j=y; j<=N; j+=(j & -j)) {
-			bit2[i][j] += val;
+			bit[i][j] += val;
 		}
 	}
 }
