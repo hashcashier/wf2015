@@ -1,18 +1,10 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
-
 static const int HEAD_VAL = -1;
 static const int NOT_FOUND = -(1<<30);
 
 class node{
   public:
-    int value;
-    int level;
-    int length;
-    node* next;
-    node* down;
+    int value,level,length;
+    node *next,*down;
 
     void init(int v,int lvl, int len,node* n,node* d){
       value = v;
@@ -95,21 +87,6 @@ class SkipList{
     return true;
   }
 
-  void print(){
-    node* cur = head;
-    node* first = head;
-    while(first != NULL){
-      cur = first;
-      cout << first->level << " ";
-      while(cur != NULL){
-        cout << cur->value << " ";
-        cur = cur->next;
-      }
-      cout << endl;
-      first = first->down;
-    }
-  }
-
   bool remove(int val){
     if(!search(val))
       return false;
@@ -132,6 +109,7 @@ class SkipList{
 };
 
 class IndexableSkipList{
+  // In the main srand(time(NULL)); // VERY IMPORTANT!
   int size;
   node* head;
 
@@ -232,29 +210,4 @@ class IndexableSkipList{
     }
     return -1;
   }
-
-  void print() {
-    node* cur = head;
-    node* first = head;
-    while (first != NULL) {
-      cur = first;
-      cout << first->level << " ";
-      while (cur != NULL) {
-        cout << "[" << cur->value << " " << cur->length << "] ";
-        cur = cur->next;
-      }
-      cout << endl;
-      first = first->down;
-    }
-  }
 };
-
-int main(){
-  srand(time(NULL));
-  SkipList list;
-  for(int i=1;i<20;i++)
-    list.add(i);
-  list.print();
-  list.remove(2);
-  list.print();
-}
