@@ -6,8 +6,8 @@ Tree can be extended to N-dimensions
 #define MAXN 1000
 
 int N;
-int bit[MAXN];
-int bit2[MAXN][MAXN];
+int bit[MAXN+1];
+int bit2[MAXN+1][MAXN+1];
 
 void update(int idx, int val) {
 	for(int i=idx; i<=N; i+=(i & -i)) {
@@ -21,6 +21,39 @@ int query(int idx) {
 		ret += bit[i];
 	}
 	return ret;
+}
+
+//If more than one index exists, choose randomly
+int find(int val) {
+	int idx = 0, num = (int) log2(N);
+	int mask = (1 << num);
+	while(mask != 0 && idx < N) {
+		int nidx = idx + mask;
+		if(val == bit[nidx]) {
+			return nidx;
+		}
+		else if(val > bit[nidx]) {
+			idx = nidx;
+			val -= bit[nidx];
+		}
+		mask >>= 1;
+	}
+	return (val != 0) ? -1 : idx;
+}
+
+//If more than one index exists, choose greatest
+int findG(int val) {
+	int idx = 0, num = (int) log2(N);
+	int mask = (1 << num);
+	while(mask != 0 && idx < N) {
+		int nidx = idx + mask;
+		if(val >= bit[nidx]) {
+			idx = nidx;
+			val -= bit[nidx];
+		}
+		mask >>= 1;
+	}
+	return (val != 0) ? -1 : idx;
 }
 
 void update2(int x, int y, int val) {
