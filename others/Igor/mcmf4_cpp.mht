@@ -1,0 +1,211 @@
+From: "Saved by Internet Explorer 11"
+Subject: 
+Date: Wed, 29 Apr 2015 20:38:38 +0200
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://shygypsy.com/tools/mcmf4.cpp
+X-MimeOLE: Produced By Microsoft MimeOLE V6.3.9600.16384
+
+<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content=3D"IE=3D11.0000"=20
+http-equiv=3D"X-UA-Compatible">
+
+<META http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dwindows-1252">
+<META name=3D"GENERATOR" content=3D"MSHTML 11.00.9600.17037"></HEAD>
+<BODY>
+<PRE>/**=0A=
+ *   ///////////////////////=0A=
+ *   // MIN COST MAX FLOW //=0A=
+ *   ///////////////////////=0A=
+ *=0A=
+ *   Authors: Frank Chu, Igor Naverniouk=0A=
+ **/=0A=
+=0A=
+/*********************=0A=
+ * Min cost max flow * (Edmonds-Karp relabelling + fast heap Dijkstra)=0A=
+ *********************=0A=
+ * Takes a directed graph where each edge has a capacity ('cap') and a =0A=
+ * cost per unit of flow ('cost') and returns a maximum flow network=0A=
+ * of minimal cost ('fcost') from s to t. USE mcmf3.cpp FOR DENSE GRAPHS!=0A=
+ *=0A=
+ * PARAMETERS:=0A=
+ *      - cap (global): adjacency matrix where cap[u][v] is the capacity=0A=
+ *          of the edge u-&gt;v. cap[u][v] is 0 for non-existent edges.=0A=
+ *      - cost (global): a matrix where cost[u][v] is the cost per unit=0A=
+ *          of flow along the edge u-&gt;v. If cap[u][v] =3D=3D 0, =
+cost[u][v] is=0A=
+ *          ignored. ALL COSTS MUST BE NON-NEGATIVE!=0A=
+ *      - n: the number of vertices ([0, n-1] are considered as =
+vertices).=0A=
+ *      - s: source vertex.=0A=
+ *      - t: sink.=0A=
+ * RETURNS:=0A=
+ *      - the flow=0A=
+ *      - the total cost through 'fcost'=0A=
+ *      - fnet contains the flow network. Careful: both fnet[u][v] and=0A=
+ *          fnet[v][u] could be positive. Take the difference.=0A=
+ * COMPLEXITY:=0A=
+ *      - Worst case: O(m*log(m)*flow  &lt;?  n*m*log(m)*fcost)=0A=
+ * FIELD TESTING:=0A=
+ *      - Valladolid 10594: Data Flow=0A=
+ * REFERENCE:=0A=
+ *      Edmonds, J., Karp, R.  "Theoretical Improvements in Algorithmic=0A=
+ *          Efficieincy for Network Flow Problems".=0A=
+ *      This is a slight improvement of Frank Chu's implementation.=0A=
+ **/=0A=
+ =0A=
+#include &lt;iostream&gt;=0A=
+using namespace std;=0A=
+=0A=
+// the maximum number of vertices + 1=0A=
+#define NN 1024=0A=
+=0A=
+// adjacency matrix (fill this up)=0A=
+int cap[NN][NN];=0A=
+=0A=
+// cost per unit of flow matrix (fill this up)=0A=
+int cost[NN][NN];=0A=
+=0A=
+// flow network and adjacency list=0A=
+int fnet[NN][NN], adj[NN][NN], deg[NN];=0A=
+=0A=
+// Dijkstra's predecessor, depth and priority queue=0A=
+int par[NN], d[NN], q[NN], inq[NN], qs;=0A=
+=0A=
+// Labelling function=0A=
+int pi[NN];=0A=
+=0A=
+#define CLR(a, x) memset( a, x, sizeof( a ) )=0A=
+#define Inf (INT_MAX/2)=0A=
+#define BUBL { \=0A=
+    t =3D q[i]; q[i] =3D q[j]; q[j] =3D t; \=0A=
+    t =3D inq[q[i]]; inq[q[i]] =3D inq[q[j]]; inq[q[j]] =3D t; }=0A=
+=0A=
+// Dijkstra's using non-negative edge weights (cost + potential)=0A=
+#define Pot(u,v) (d[u] + pi[u] - pi[v])=0A=
+bool dijkstra( int n, int s, int t )=0A=
+{=0A=
+    CLR( d, 0x3F );=0A=
+    CLR( par, -1 );=0A=
+    CLR( inq, -1 );=0A=
+    //for( int i =3D 0; i &lt; n; i++ ) d[i] =3D Inf, par[i] =3D -1;=0A=
+    d[s] =3D qs =3D 0;=0A=
+    inq[q[qs++] =3D s] =3D 0;=0A=
+    par[s] =3D n;=0A=
+=0A=
+    while( qs ) =0A=
+    {=0A=
+        // get the minimum from q and bubble down=0A=
+        int u =3D q[0]; inq[u] =3D -1;=0A=
+        q[0] =3D q[--qs];=0A=
+        if( qs ) inq[q[0]] =3D 0;=0A=
+        for( int i =3D 0, j =3D 2*i + 1, t; j &lt; qs; i =3D j, j =3D =
+2*i + 1 )=0A=
+        {=0A=
+            if( j + 1 &lt; qs &amp;&amp; d[q[j + 1]] &lt; d[q[j]] ) j++;=0A=
+            if( d[q[j]] &gt;=3D d[q[i]] ) break;=0A=
+            BUBL;=0A=
+        }=0A=
+        =0A=
+        // relax edge (u,i) or (i,u) for all i;=0A=
+        for( int k =3D 0, v =3D adj[u][k]; k &lt; deg[u]; v =3D =
+adj[u][++k] )=0A=
+        {=0A=
+            // try undoing edge v-&gt;u      =0A=
+            if( fnet[v][u] &amp;&amp; d[v] &gt; Pot(u,v) - cost[v][u] ) =0A=
+                d[v] =3D Pot(u,v) - cost[v][par[v] =3D u];=0A=
+        =0A=
+            // try using edge u-&gt;v=0A=
+            if( fnet[u][v] &lt; cap[u][v] &amp;&amp; d[v] &gt; Pot(u,v) =
++ cost[u][v] ) =0A=
+                d[v] =3D Pot(u,v) + cost[par[v] =3D u][v];=0A=
+                =0A=
+            if( par[v] =3D=3D u )=0A=
+            {=0A=
+                // bubble up or decrease key=0A=
+                if( inq[v] &lt; 0 ) { inq[q[qs] =3D v] =3D qs; qs++; }=0A=
+                for( int i =3D inq[v], j =3D ( i - 1 )/2, t;=0A=
+                     d[q[i]] &lt; d[q[j]]; i =3D j, j =3D ( i - 1 )/2 )=0A=
+                     BUBL;=0A=
+            }=0A=
+        }=0A=
+    }=0A=
+  =0A=
+    for( int i =3D 0; i &lt; n; i++ ) if( pi[i] &lt; Inf ) pi[i] +=3D =
+d[i];=0A=
+  =0A=
+    return par[t] &gt;=3D 0;=0A=
+}=0A=
+#undef Pot=0A=
+=0A=
+int mcmf4( int n, int s, int t, int &amp;fcost )=0A=
+{=0A=
+    // build the adjacency list=0A=
+    CLR( deg, 0 );=0A=
+    for( int i =3D 0; i &lt; n; i++ )=0A=
+    for( int j =3D 0; j &lt; n; j++ ) =0A=
+        if( cap[i][j] || cap[j][i] ) adj[i][deg[i]++] =3D j;=0A=
+        =0A=
+    CLR( fnet, 0 );=0A=
+    CLR( pi, 0 );=0A=
+    int flow =3D fcost =3D 0;=0A=
+    =0A=
+    // repeatedly, find a cheapest path from s to t=0A=
+    while( dijkstra( n, s, t ) ) =0A=
+    {=0A=
+        // get the bottleneck capacity=0A=
+        int bot =3D INT_MAX;=0A=
+        for( int v =3D t, u =3D par[v]; v !=3D s; u =3D par[v =3D u] )=0A=
+            bot &lt;?=3D fnet[v][u] ? fnet[v][u] : ( cap[u][v] - =
+fnet[u][v] );=0A=
+=0A=
+        // update the flow network=0A=
+        for( int v =3D t, u =3D par[v]; v !=3D s; u =3D par[v =3D u] )=0A=
+            if( fnet[v][u] ) { fnet[v][u] -=3D bot; fcost -=3D bot * =
+cost[v][u]; }=0A=
+            else { fnet[u][v] +=3D bot; fcost +=3D bot * cost[u][v]; }=0A=
+    =0A=
+        flow +=3D bot;=0A=
+    }=0A=
+  =0A=
+    return flow;=0A=
+}=0A=
+=0A=
+//----------------- EXAMPLE USAGE -----------------=0A=
+#include &lt;iostream&gt;=0A=
+#include &lt;stdio.h&gt;=0A=
+using namespace std;=0A=
+=0A=
+int main()=0A=
+{=0A=
+  int numV;=0A=
+  //  while ( cin &gt;&gt; numV &amp;&amp; numV ) {=0A=
+  cin &gt;&gt; numV;=0A=
+    memset( cap, 0, sizeof( cap ) );=0A=
+=0A=
+    int m, a, b, c, cp;=0A=
+    int s, t;=0A=
+    cin &gt;&gt; m;=0A=
+    cin &gt;&gt; s &gt;&gt; t;=0A=
+    =0A=
+    // fill up cap with existing capacities.=0A=
+    // if the edge u-&gt;v has capacity 6, set cap[u][v] =3D 6.=0A=
+    // for each cap[u][v] &gt; 0, set cost[u][v] to  the=0A=
+    // cost per unit of flow along the edge i-&gt;v=0A=
+    for (int i=3D0; i&lt;m; i++) {=0A=
+      cin &gt;&gt; a &gt;&gt; b &gt;&gt; cp &gt;&gt; c;=0A=
+      cost[a][b] =3D c; // cost[b][a] =3D c;=0A=
+      cap[a][b] =3D cp; // cap[b][a] =3D cp;=0A=
+    }=0A=
+=0A=
+    int fcost;=0A=
+    int flow =3D mcmf3( numV, s, t, fcost );=0A=
+    cout &lt;&lt; "flow: " &lt;&lt; flow &lt;&lt; endl;=0A=
+    cout &lt;&lt; "cost: " &lt;&lt; fcost &lt;&lt; endl;=0A=
+=0A=
+    return 0;=0A=
+}=0A=
+</PRE></BODY></HTML>
