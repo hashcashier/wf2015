@@ -20,6 +20,7 @@ struct line {
 			b = p2.real() - p1.real(),
 			c = -(a*p1.real() + b*p1.imag());
 	}
+	double operator()(double x) const {return -(c+a*x)/b;}
 };
 struct circle {
 	point c; double r;
