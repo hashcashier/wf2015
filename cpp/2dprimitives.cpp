@@ -5,6 +5,7 @@ double dot(point a, point b) {return real(conj(a)*b);}
 double len(point a, point b) {return dot(b-a,b-a);}
 point mid(point a, point b) {return (a+b)/point(2);}
 point perp(point a) {return point(-imag(a),real(a));}
+point vec(point &a, point &b) {return b-a;}
 enum STATE {
         IN, OUT, BOUNDARY
 };
