@@ -1,8 +1,8 @@
 /*
-Set get_val function accordingly
-terminals have values from a to z (0..25)
-epsilon has value of 26
-last_var starts from 27
+1. Set get_val function accordingly
+2. Terminals have values from a to z (0..25)
+3. Epsilon has value of 26
+4. last_var starts from 27
 */
 
 #define MAXN 1000
