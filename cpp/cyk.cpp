@@ -4,19 +4,14 @@
 3. Epsilon has value of 26
 4. last_var starts from 27
 */
-
 #define MAXN 1000
-
 vector<int> dp[MAXN][MAXN];
-
 int last_var;
 vector< vector<int> > grammar[MAXN];
 int start, N;
-
 int getVal(char c) {
 	return c - 'a';
 }
-
 bool isValid(int var, vector<int> rule) {
 	for(int i=0; i<grammar[var].size(); i++) {
 		if(grammar[var][i].size() == rule.size()) {
@@ -33,7 +28,6 @@ bool isValid(int var, vector<int> rule) {
 	}
 	return false;
 }
-
 vector<int> getVars(vector<int> rule) {
 	vector<int> ret;
 	for(int i=27; i<last_var; i++) {
@@ -43,7 +37,6 @@ vector<int> getVars(vector<int> rule) {
 	}
 	return ret;
 }
-
 bool CYK(string word) {
 	vector<int> ret, rule;
 	rule.assign(1, 26);
