@@ -1,75 +1,82 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 class MaxFlowDinic{
+  int MAX_V,E,s,t,head,tail;
+  int *cap,*to,*next,*last,*dist,*q,*now;
 
-  static const int MAXN = 110;
-  static const int INF = 1000000000;
+  MaxFlowDinic(){}
 
-  struct edge {
-    int a, b, cap, flow;
-  };
-
-  int n, s, t, d[MAXN], ptr[MAXN], q[MAXN];
-  vector<edge> e;
-  vector<int> g[MAXN];
-
-  void addEdge (int a, int b, int cap) {
-    edge e1 = { a, b, cap, 0 };
-    edge e2 = { b, a, 0, 0 };
-    g[a].push_back ((int) e.size());
-    e.push_back (e1);
-    g[b].push_back ((int) e.size());
-    e.push_back (e2);
+  public:
+  MaxFlowDinic(int V, int MAX_E){
+    MAX_V = V; E = 0;
+    cap = new int[2*MAX_E], to = new int[2*MAX_E], next = new int[2*MAX_E];
+    last = new int[MAX_V], q = new int[MAX_V], dist = new int[MAX_V], now = new int[MAX_V];
+    fill(last,last+MAX_V,-1);
   }
 
-  bool bfs() {
-    int qh=0, qt=0;
-    q[qt++] = s;
-    memset (d, -1, n * sizeof d[0]);
-    d[s] = 0;
-    while (qh < qt && d[t] == -1) {
-      int v = q[qh++];
-      for (size_t i=0; i<g[v].size(); ++i) {
-        int id = g[v][i],
-            to = e[id].b;
-        if (d[to] == -1 && e[id].flow < e[id].cap) {
-          q[qt++] = to;
-          d[to] = d[v] + 1;
+  void clear(){
+    fill(last,last+MAX_V,-1);
+    E = 0;
+  }
+
+  // To add an indirected edge add 4th param equal to the cap
+  // Don't add two undirected edges
+  void add_edge(int u, int v, int uv, int vu = 0){
+    to[E] = v, cap[E] = uv, next[E] = last[u]; last[u] = E++;
+    to[E] = u, cap[E] = vu, next[E] = last[v]; last[v] = E++;
+  }
+
+  bool bfs(){
+    fill(dist,dist+MAX_V,-1);
+    head = tail = 0;
+
+    q[tail] = t; ++tail;
+    dist[t] = 0;
+
+    while(head<tail){
+      int v = q[head]; ++head;
+      for(int e = last[v];e!=-1;e = next[e]){
+        if(cap[e^1]>0 && dist[to[e]]==-1){
+          q[tail] = to[e]; ++tail;
+          dist[to[e]] = dist[v]+1;
         }
       }
     }
-    return d[t] != -1;
+
+    return dist[s]!=-1;
   }
 
-  int dfs (int v, int flow) {
-    if (!flow)  return 0;
-    if (v == t)  return flow;
-    for (; ptr[v]<(int)g[v].size(); ++ptr[v]) {
-      int id = g[v][ptr[v]],
-          to = e[id].b;
-      if (d[to] != d[v] + 1)  continue;
-      int pushed = dfs (to, min (flow, e[id].cap - e[id].flow));
-      if (pushed) {
-        e[id].flow += pushed;
-        e[id^1].flow -= pushed;
-        return pushed;
+  int dfs(int v, int f){
+    if(v==t) return f;
+
+    for(int &e = now[v];e!=-1;e = next[e]){
+      if(cap[e]>0 && dist[to[e]]==dist[v]-1){
+        int ret = dfs(to[e],min(f,cap[e]));
+
+        if(ret>0){
+          cap[e] -= ret;
+          cap[e^1] += ret;
+          return ret;
+        }
       }
     }
+
     return 0;
   }
 
-  int max_flow(int source,int sink, int _n) {
-    s = source;
-    t = sink;
-    n = _n;
-    int flow = 0;
-    for (;;) {
-      if (!bfs())  break;
-      memset (ptr, 0, n * sizeof ptr[0]);
-      while (int pushed = dfs (s, INF))
-        flow += pushed;
+  long long max_flow(int source, int sink){
+    s = source; t = sink;
+    long long f = 0;
+    int x;
+
+    while(bfs()){
+      for(int i = 0;i<MAX_V;++i) now[i] = last[i];
+
+      while(true){
+        x = dfs(s,INT_MAX);
+        if(x==0) break;
+        f += x;
+      }
     }
-    return flow;
+
+    return f;
   }
 };
