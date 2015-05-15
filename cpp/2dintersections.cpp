@@ -50,13 +50,7 @@ int circleLineIntersection(point& p0, point& p1,
 	r1 = p0 + t1 * (p1 - p0);
 	r2 = p0 + t2 * (p1 - p0);
 	return res;
-}// Circle - Segment
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Algorithm
-// Circle - Circle
+}// Circle - Circle
 int CCI(point &c1, double &r1, point &c2, double &r2, point &res1, point &res2) {
 	if (same(c1,c2) && fabs(r1 - r2) < EPS) {
 		res1 = res2 = c1;
