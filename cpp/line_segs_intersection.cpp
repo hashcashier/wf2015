@@ -22,7 +22,6 @@ typedef pair<line, int> idSeg;
 
 struct sweepLineCmp {
 	static double *x;
-	static int A, B;
 	static set<ii> lessThan;
 	bool operator()(const idSeg &a, const idSeg &b) {
 		if(lessThan.count(ii(a.second, b.second))) return true;
@@ -32,8 +31,6 @@ struct sweepLineCmp {
 	}
 };
 double *sweepLineCmp::x = nullptr;
-int sweepLineCmp::A = -1;
-int sweepLineCmp::B = -1;
 set<ii> sweepLineCmp::lessThan = set<ii>();
 vector<event> intersections(vector<line> &segs) {
 	vector<event> res; priority_queue<event> Q;
