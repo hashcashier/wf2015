@@ -35,3 +35,25 @@ struct circle {
 		c = mid(a,b); r = len(a,b)/2;
 	}
 };
+/** FEGLA DEFINES **/
+#define sz(a) ((int)(a).size())
+#define all(n) (n).begin(),(n).end()
+#define EPS 1e-9
+#define OO 1e9
+#define X real()
+#define Y imag()
+#define vec(a,b) ((b)-(a))
+#define polar(r,t) ((r)*exp(point(0,(t))))
+#define angle(v) (atan2((v).Y,(v).X))
+#define length(v) ((long double)hypot((v).Y,(v).X))
+#define lengthSqr(v) (dot(v,v))
+#define dot(a,b) ((conj(a)*(b)).real())
+#define cross(a,b) ((conj(a)*(b)).imag())
+#define rotate(v,t) (polar(v,t))
+#define rotateabout(v,t,a)  (rotate(vec(a,v),t)+(a))
+#define reflect(p,m) ((conj((p)/(m)))*(m))
+#define normalize(p) ((p)/length(p))
+#define same(a,b) (lengthSqr(vec(a,b))<EPS)
+#define mid(a,b) (((a)+(b))/point(2,0))
+#define perp(a) (point(-(a).Y,(a).X))
+#define colliner pointOnLine
