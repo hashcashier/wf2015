@@ -19,17 +19,15 @@ int getVal(char c) {
 
 bool isValid(int var, vector<int> rule) {
 	for(int i=0; i<grammar[var].size(); i++) {
-		for(int j=0; j<grammar[i].size(); j++) {
-			if(grammar[i][j].size() == rule.size()) {
-				int p;
-				for(p=0; p<rule.size(); p++) {
-					if(rule[p] != grammar[i][j][p]) {
-						break;
-					}
+		if(grammar[var][i].size() == rule.size()) {
+			int j = 0;
+			for(int j=0; j<rule.size(); j++) {
+				if(rule[j] != grammar[var][i][j]) {
+					break;
 				}
-				if(p == rule.size()) {
-					return true;
-				}
+			}
+			if(j == rule.size()) {
+				return true;
 			}
 		}
 	}
