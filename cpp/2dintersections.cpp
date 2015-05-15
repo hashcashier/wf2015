@@ -12,11 +12,12 @@ bool intersectLL(line &A, line &B, point &res){
 
 // Line - Segment
 bool intersectLS(line &A, line &B, point &res){
-	intersectLL(A, B, res); double len = length(A,B);
-	return length(A, res) < len && length(B, res) < len;
+	if(!intersectLL(A, B, res)) return false;
+	double L = length(B.p,B.q);
+	return length(B.p, res) < L && length(B.q, res) < L;
 }
 // Segment - Segment
-bool intersectLS(line &A, line &B, point &res){
+bool intersectSS(line &A, line &B, point &res){
 	return intersectLS(A, B, res) && intersectLS(B, A, res);
 }
 // Circle - Line
