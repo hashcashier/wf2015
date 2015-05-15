@@ -13,7 +13,7 @@ struct sparseTable {
 				if( arr[spt[i][j-1]] < arr[spt[i+(1<<(j-1))][j-1]])
 					spt[i][j] = spt[i][j-1];
 				else
-					spt[i][j] = spt[i+(1<<(j-1))][j-1]
+					spt[i][j] = spt[i+(1<<(j-1))][j-1];
 	}
 	
 	int rmq(int i, int j) {
