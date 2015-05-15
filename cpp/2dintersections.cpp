@@ -7,8 +7,9 @@ bool intersectLL(line &A, line &B, point &res){
 	if(parallel(A, B)) return false;
 	double d1 = cross(B.p - A.p, A.q - A.p);
 	double d2 = cross(B.q - A.p, A.q - A.p);
-	return res = (d1 * B.q - d2 * B.p) / (d1 - d2);
-}
+	res = (d1 * B.q - d2 * B.p) / (d1 - d2);
+	return true;
+
 // Line - Segment
 bool intersectLS(line &A, line &B, point &res){
 	intersectLL(A, B, res); double len = length(A,B);
